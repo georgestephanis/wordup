@@ -1,4 +1,4 @@
-# XCode Build Issue - Technical Details
+# Xcode Build Issue - Technical Details
 
 ## Problem
 

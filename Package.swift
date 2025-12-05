@@ -17,10 +17,7 @@ let package = Package(
         .executableTarget(
             name: "WordUp",
             dependencies: [],
-            path: "Sources",
-            resources: [
-                .process("Info.plist")
-            ]
+            path: "Sources"
         )
     ]
 )
