@@ -123,11 +123,13 @@ class DragDropView: NSView {
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         registerForDraggedTypes([.fileURL])
+        autoresizingMask = [.width, .height]
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         registerForDraggedTypes([.fileURL])
+        autoresizingMask = [.width, .height]
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
