@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This script validates the Swift syntax without building
 # Note: This project can only be built on macOS with Xcode
 

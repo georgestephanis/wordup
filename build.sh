@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Build script for WordUp macOS app
 # This script must be run on macOS with Xcode installed
 
