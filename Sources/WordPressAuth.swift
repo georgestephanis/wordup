@@ -89,7 +89,9 @@ class WordPressAuth {
         UserDefaults.standard.set(username, forKey: usernameKey)
         
         // Save password to Keychain
-        let passwordData = password.data(using: .utf8)!
+        guard let passwordData = password.data(using: .utf8) else {
+            throw AuthError.keychainError
+        }
         
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,

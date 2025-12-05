@@ -4,6 +4,12 @@ struct MenuView: View {
     weak var appDelegate: AppDelegate?
     @State private var isAuthenticated = false
     
+    // UI Constants
+    private enum Layout {
+        static let width: CGFloat = 300
+        static let height: CGFloat = 200
+    }
+    
     var body: some View {
         VStack(spacing: 10) {
             Text("WordUp")
@@ -55,7 +61,7 @@ struct MenuView: View {
             }
             .padding(.bottom)
         }
-        .frame(width: 300, height: 200)
+        .frame(width: Layout.width, height: Layout.height)
         .onAppear {
             isAuthenticated = WordPressAuth.shared.isAuthenticated()
         }
