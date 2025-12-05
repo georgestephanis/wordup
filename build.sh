@@ -22,14 +22,9 @@ fi
 echo "📦 Compiling with Swift Package Manager..."
 swift build -c release
 
-# Check if build succeeded
-if [ $? -eq 0 ]; then
-    echo "✅ Build successful!"
-    echo "📍 Binary location: .build/release/WordUp"
-    echo ""
-    echo "To run the app:"
-    echo "  .build/release/WordUp"
-else
-    echo "❌ Build failed"
-    exit 1
-fi
+# If we reach here, build succeeded (set -e would have exited on error)
+echo "✅ Build successful!"
+echo "📍 Binary location: .build/release/WordUp"
+echo ""
+echo "To run the app:"
+echo "  .build/release/WordUp"

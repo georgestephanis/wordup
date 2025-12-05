@@ -55,7 +55,9 @@ class WordPressAuth {
     
     private func testConnection(url: URL, username: String, password: String) async throws {
         // Test connection to WordPress REST API
-        let testURL = url.appendingPathComponent("wp-json").appendingPathComponent("wp").appendingPathComponent("v2").appendingPathComponent("users").appendingPathComponent("me")
+        guard let testURL = URL(string: "\(url.absoluteString)/wp-json/wp/v2/users/me") else {
+            throw AuthError.invalidURL
+        }
         
         var request = URLRequest(url: testURL)
         request.httpMethod = "GET"
