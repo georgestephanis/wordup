@@ -35,6 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // Create custom view for drag and drop
             dropView = DragDropView(frame: button.bounds)
             dropView.appDelegate = self
+            dropView.autoresizingMask = [.width, .height]
             button.addSubview(dropView)
         }
         

@@ -28,7 +28,9 @@ class WordPressAPI {
             throw APIError.invalidURL
         }
         
-        let uploadURL = siteURL.appendingPathComponent("wp-json").appendingPathComponent("wp").appendingPathComponent("v2").appendingPathComponent("media")
+        guard let uploadURL = URL(string: "\(siteURL.absoluteString)/wp-json/wp/v2/media") else {
+            throw APIError.invalidURL
+        }
         
         // Create request
         var request = URLRequest(url: uploadURL)
