@@ -37,7 +37,15 @@ This app is built using Swift and Swift Package Manager.
    open Package.swift
    ```
 
-3. Build and run the project in Xcode (⌘R)
+3. **Important**: Configure the Info.plist in Xcode:
+   - In Xcode, select the WordUp target
+   - Go to the "Build Settings" tab
+   - Search for "Info.plist File"
+   - Set the value to `Info.plist` (the file in the root directory)
+   
+   This step is necessary to ensure the app bundle is properly configured, which is required for features like notifications to work correctly.
+
+4. Build and run the project in Xcode (⌘R)
 
 Alternatively, you can build from the command line:
 
@@ -46,6 +54,8 @@ swift build -c release
 ```
 
 The compiled binary will be located at `.build/release/WordUp`.
+
+**Note**: When building with Xcode, the Info.plist configuration is essential. Without it, you may encounter errors related to `bundleProxyForCurrentProcess` when using UserNotifications or other system frameworks that require a proper app bundle.
 
 ## Usage
 
