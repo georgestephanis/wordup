@@ -10,6 +10,12 @@ struct AuthenticationView: View {
     @State private var errorMessage: String?
     @State private var showInstructions = false
     
+    // UI Constants
+    private enum Layout {
+        static let width: CGFloat = 500
+        static let height: CGFloat = 400
+    }
+    
     var body: some View {
         VStack(spacing: 20) {
             Text("WordUp Setup")
@@ -100,7 +106,7 @@ struct AuthenticationView: View {
             
             Spacer()
         }
-        .frame(width: 500, height: 400)
+        .frame(width: Layout.width, height: Layout.height)
     }
     
     func authenticate() {

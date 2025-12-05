@@ -1,5 +1,6 @@
 import Cocoa
 import SwiftUI
+import UserNotifications
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem!
@@ -7,7 +8,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var authWindow: NSWindow?
     var dropView: DragDropView!
     
+    // UI Constants
+    private enum Layout {
+        static let menuWidth: CGFloat = 300
+        static let menuHeight: CGFloat = 200
+        static let authWindowWidth: CGFloat = 500
+        static let authWindowHeight: CGFloat = 400
+    }
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
+        // Request notification permissions
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
+            if let error = error {
+                print("Error requesting notification permission: \(error)")
+            }
+        }
+        
         // Create status bar item
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         
@@ -24,7 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Create popover with menu
         popover = NSPopover()
-        popover.contentSize = NSSize(width: 300, height: 200)
+        popover.contentSize = NSSize(width: Layout.menuWidth, height: Layout.menuHeight)
         popover.behavior = .transient
         popover.contentViewController = NSHostingController(rootView: MenuView(appDelegate: self))
         
@@ -47,7 +63,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func showAuthWindow() {
         let contentView = AuthenticationView(appDelegate: self)
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 500, height: 400),
+            contentRect: NSRect(x: 0, y: 0, width: Layout.authWindowWidth, height: Layout.authWindowHeight),
             styleMask: [.titled, .closable, .miniaturizable],
             backing: .buffered,
             defer: false
@@ -85,11 +101,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func showNotification(title: String, message: String) {
-        let notification = NSUserNotification()
-        notification.title = title
-        notification.informativeText = message
-        notification.soundName = NSUserNotificationDefaultSoundName
-        NSUserNotificationCenter.default.deliver(notification)
+        // Use UserNotifications framework for macOS 10.14+
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = message
+        content.sound = .default
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error showing notification: \(error)")
+            }
+        }
     }
 }
 
